@@ -9,21 +9,57 @@ import CartPage from './pages/CartPage';
 import LookbookPage from './pages/LookbookPage';
 import AboutPage from './pages/AboutPage';
 import WishlistPage from './pages/WishlistPage';
+import CheckoutPage from './pages/CheckoutPage';
 import { PRODUCTS } from './data/products';
 
+const STORE_VERSION = "forma_v1";
+
 export default function App() {
-    const [page, setPage] = useState('home');
-    const [selectedProduct, setSelectedProduct] = useState(null);
-    const [cart, setCart] = useState([]);
+    // ── Persistent State Initialization ───────────────────────
+    const [page, setPage] = useState(() => {
+        try { const saved = localStorage.getItem("forma_page"); return saved ? JSON.parse(saved) : "home"; } catch { return "home"; }
+    });
+    
+    const [selectedProduct, setSelectedProduct] = useState(() => {
+        try { const saved = localStorage.getItem("forma_selected_product"); return saved ? JSON.parse(saved) : null; } catch { return null; }
+    });
+    
+    const [cart, setCart] = useState(() => {
+        try { const saved = localStorage.getItem("forma_cart"); return saved ? JSON.parse(saved) : []; } catch { return []; }
+    });
+
+    const [searchQuery, setSearchQuery] = useState(() => {
+        try { const saved = localStorage.getItem("forma_search"); return saved ? JSON.parse(saved) : ""; } catch { return ""; }
+    });
+    
+    const [wishlist, setWishlist] = useState(() => {
+        try { const saved = localStorage.getItem("forma_wishlist"); return saved ? JSON.parse(saved) : []; } catch { return []; }
+    });
+
     const [toast, setToast] = useState(null);
-    const [searchQuery, setSearchQuery] = useState('');
-    const [wishlist, setWishlist] = useState([]);
+
+    // ── Persistent State Syncing ──────────────────────────────
+    useEffect(() => { try { localStorage.setItem("forma_page", JSON.stringify(page)); } catch {} }, [page]);
+    useEffect(() => { try { localStorage.setItem("forma_selected_product", JSON.stringify(selectedProduct)); } catch {} }, [selectedProduct]);
+    useEffect(() => { try { localStorage.setItem("forma_cart", JSON.stringify(cart)); } catch {} }, [cart]);
+    useEffect(() => { try { localStorage.setItem("forma_search", JSON.stringify(searchQuery)); } catch {} }, [searchQuery]);
+    useEffect(() => { try { localStorage.setItem("forma_wishlist", JSON.stringify(wishlist)); } catch {} }, [wishlist]);
 
     const toggleWishlist = (id) => {
         setWishlist((prev) => 
             prev.includes(id) ? prev.filter((i) => i !== id) : [...prev, id]
         );
     };
+
+    useEffect(() => {
+        try {
+            const savedVersion = localStorage.getItem("forma_version");
+            if (savedVersion !== STORE_VERSION) {
+                localStorage.clear();
+                localStorage.setItem("forma_version", STORE_VERSION);
+            }
+        } catch {}
+    }, []);
 
     // Scroll to top on page change
     useEffect(() => {
@@ -90,6 +126,8 @@ export default function App() {
                 return <WishlistPage wishlist={wishlist} toggleWishlist={toggleWishlist} setPage={setPage} setSelectedProduct={setSelectedProduct} addToCart={addToCart} />;
             case 'cart':
                 return <CartPage cart={cart} setCart={setCart} setPage={setPage} setSelectedProduct={setSelectedProduct} />;
+            case 'checkout':
+                return <CheckoutPage cart={cart} setCart={setCart} setPage={setPage} />;
             default:
                 return <HomePage {...props} />;
         }
@@ -101,6 +139,7 @@ export default function App() {
                 page={page} 
                 setPage={setPage} 
                 cartCount={cartCount} 
+                wishlistCount={wishlist.length}
                 searchQuery={searchQuery}
                 onSearch={setSearchQuery} 
                 resultCount={resultCount}

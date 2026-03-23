@@ -28,6 +28,10 @@ body {
     color: var(--ink);
 }
 
+button {
+    cursor: pointer;
+}
+
 /* ── Animations ────────────────────────────────────────── */
 @keyframes fadeUp {
     from {

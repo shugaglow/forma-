@@ -48,7 +48,7 @@ const CloseIcon = () => (
 );
 
 // ── Component ────────────────────────────────────────────
-export default function Header({ page, setPage, cartCount, searchQuery = '', onSearch, resultCount = 0 }) {
+export default function Header({ page, setPage, cartCount, wishlistCount = 0, searchQuery = '', onSearch, resultCount = 0 }) {
     const [menuOpen, setMenuOpen] = useState(false);
     const [scrolled, setScrolled] = useState(false);
     const [searchOpen, setSearchOpen] = useState(false);
@@ -136,10 +136,15 @@ export default function Header({ page, setPage, cartCount, searchQuery = '', onS
                         </button>
                         <button
                             onClick={() => navigate('wishlist')}
-                            className="text-[var(--mid)] hover:text-[var(--ink)] transition-colors hidden md:block"
+                            className="relative text-[var(--mid)] hover:text-[var(--ink)] transition-colors hidden md:block"
                             aria-label="Wishlist"
                         >
                             <HeartIcon />
+                            {wishlistCount > 0 && (
+                                <span className="absolute -top-1.5 -right-2.5 bg-[var(--accent)] text-white text-[10px] w-4 h-4 rounded-full flex items-center justify-center font-sans font-semibold">
+                                    {wishlistCount}
+                                </span>
+                            )}
                         </button>
                         <button
                             onClick={() => navigate('cart')}
@@ -230,11 +235,16 @@ export default function Header({ page, setPage, cartCount, searchQuery = '', onS
                             <SearchIcon />
                         </button>
                         <button 
-                            className="text-[var(--mid)] hover:text-[var(--ink)]" 
+                            className="relative text-[var(--mid)] hover:text-[var(--ink)]" 
                             aria-label="Wishlist"
                             onClick={() => navigate('wishlist')}
                         >
                             <HeartIcon />
+                            {wishlistCount > 0 && (
+                                <span className="absolute -top-1.5 -right-2.5 bg-[var(--accent)] text-white text-[10px] w-4 h-4 rounded-full flex items-center justify-center font-sans font-semibold">
+                                    {wishlistCount}
+                                </span>
+                            )}
                         </button>
                     </div>
                 </nav>

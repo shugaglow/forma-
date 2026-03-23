@@ -213,7 +213,7 @@ export default function CartPage({ cart, setCart, setPage }) {
                     </div>
 
                     {/* Checkout button */}
-                    <button className="w-full font-sans text-[12px] tracking-widest uppercase bg-[var(--ink)] text-[var(--cream)] py-4 hover:bg-[var(--accent)] transition-colors duration-200">
+                    <button onClick={() => setPage('checkout')} className="w-full font-sans text-[12px] tracking-widest uppercase bg-[var(--ink)] text-[var(--cream)] py-4 hover:bg-[var(--accent)] transition-colors duration-200">
                         Proceed to Checkout
                     </button>
 
