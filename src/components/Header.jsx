@@ -48,11 +48,31 @@ const CloseIcon = () => (
 );
 
 // ── Component ────────────────────────────────────────────
+const announcements = [
+    "Free worldwide shipping on orders over $250",
+    "New S/S 26 collection — now live",
+    "60-day free returns, no questions asked",
+    "Handmade by artisans across Europe & Japan",
+];
+
 export default function Header({ page, setPage, cartCount, wishlistCount = 0, searchQuery = '', onSearch, resultCount = 0 }) {
     const [menuOpen, setMenuOpen] = useState(false);
     const [scrolled, setScrolled] = useState(false);
     const [searchOpen, setSearchOpen] = useState(false);
+    const [current, setCurrent] = useState(0);
+    const [animating, setAnimating] = useState(false);
     const inputRef = useRef(null);
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setAnimating(true);
+            setTimeout(() => {
+                setCurrent(prev => (prev + 1) % announcements.length);
+                setAnimating(false);
+            }, 400);
+        }, 3000);
+        return () => clearInterval(interval);
+    }, []);
 
     // Autofocus search input when opened
     useEffect(() => {
@@ -76,8 +96,18 @@ export default function Header({ page, setPage, cartCount, wishlistCount = 0, se
     return (
         <header className="sticky top-0 z-50">
             {/* ── Announcement Bar ─────────────────────────── */}
-            <div className="bg-[var(--ink)] text-[var(--cream)] text-[11px] tracking-widest uppercase text-center py-2 px-4">
-                Free shipping on orders over $150 &nbsp;·&nbsp; Handcrafted in small batches
+            <div className="relative bg-[var(--ink)] text-[var(--cream)] text-[11px] tracking-widest uppercase text-center py-2 px-4 overflow-hidden">
+                <span className={`transition-all duration-400 inline-block ${animating ? 'opacity-0 -translate-y-2' : 'opacity-100 translate-y-0'}`}>
+                    {announcements[current]}
+                </span>
+                <div className="absolute bottom-[2px] left-0 right-0 flex justify-center items-center gap-1.5 pointer-events-none">
+                    {announcements.map((_, idx) => (
+                        <div 
+                            key={idx}
+                            className={`transition-all duration-300 rounded-full bg-white ${idx === current ? 'w-3 h-1 opacity-100' : 'w-1 h-1 opacity-30'}`}
+                        />
+                    ))}
+                </div>
             </div>
 
             {/* ── Main Header ──────────────────────────────── */}
