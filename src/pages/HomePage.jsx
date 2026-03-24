@@ -79,7 +79,7 @@ export default function HomePage({ setPage, setSelectedProduct, addToCart, wishl
                     </div>
 
                     {/* Right: 2×2 mini product cards */}
-                    <div className="grid grid-cols-2 gap-3">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                         {heroProducts.map((product) => (
                             <button
                                 key={product.id}
@@ -218,7 +218,7 @@ export default function HomePage({ setPage, setSelectedProduct, addToCart, wishl
                     </div>
 
                     {/* Right: 2×2 emoji tiles */}
-                    <div className="grid grid-cols-2 gap-3">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                         {editorialProducts.map((product) => (
                             <div
                                 key={product.id}

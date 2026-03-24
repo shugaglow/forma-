@@ -33,7 +33,7 @@ export default function WishlistPage({ wishlist, toggleWishlist, setPage, setSel
 
     // ── Filled State ──────────────────────────────────────
     return (
-        <div className="max-w-7xl mx-auto px-6 py-12 font-sans">
+        <div className="max-w-7xl w-full mx-auto px-6 py-12 font-sans">
             {/* Breadcrumb */}
             <nav className="flex items-center gap-2 text-[11px] tracking-widest uppercase text-[var(--mid)] mb-8">
                 <button onClick={() => setPage('home')} className="hover:text-[var(--ink)] transition-colors">
@@ -52,7 +52,7 @@ export default function WishlistPage({ wishlist, toggleWishlist, setPage, setSel
             </div>
 
             {/* Grid */}
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
                 {wishlistedProducts.map((product, i) => (
                     <ProductCard
                         key={product.id}

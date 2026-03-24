@@ -94,9 +94,9 @@ export default function Header({ page, setPage, cartCount, wishlistCount = 0, se
     };
 
     return (
-        <header className="sticky top-0 z-50">
+        <header className="sticky top-0 z-50 w-full overflow-hidden">
             {/* ── Announcement Bar ─────────────────────────── */}
-            <div className="relative bg-[var(--ink)] text-[var(--cream)] text-[11px] tracking-widest uppercase text-center py-2 px-4 overflow-hidden">
+            <div className="relative w-full overflow-hidden bg-[var(--ink)] text-[var(--cream)] text-[11px] tracking-widest uppercase text-center py-2 px-4">
                 <span className={`transition-all duration-400 inline-block ${animating ? 'opacity-0 -translate-y-2' : 'opacity-100 translate-y-0'}`}>
                     {announcements[current]}
                 </span>
@@ -112,9 +112,9 @@ export default function Header({ page, setPage, cartCount, wishlistCount = 0, se
 
             {/* ── Main Header ──────────────────────────────── */}
             <div
-                className={`bg-[var(--cream)] transition-shadow duration-300 ${scrolled ? 'shadow-md' : 'shadow-none'}`}
+                className={`bg-[var(--cream)] w-full overflow-hidden transition-shadow duration-300 ${scrolled ? 'shadow-md' : 'shadow-none'}`}
             >
-                <div className="relative max-w-7xl mx-auto px-6 h-[68px] flex items-center justify-between">
+                <div className="relative w-full max-w-7xl mx-auto px-6 h-[68px] flex items-center justify-between">
 
                     {/* Left: Nav links (desktop) + Hamburger (mobile) */}
                     <div className="flex items-center gap-8 w-1/3">

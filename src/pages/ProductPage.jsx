@@ -70,7 +70,7 @@ export default function ProductPage({ product, setPage, setSelectedProduct, addT
 
     return (
         <div className="font-sans">
-            <div className="max-w-7xl mx-auto px-6 py-12">
+            <div className="max-w-7xl w-full mx-auto px-6 py-12">
 
                 {/* ── Breadcrumb ───────────────────────────── */}
                 <nav className="flex items-center gap-2 text-[11px] tracking-widest uppercase text-[var(--mid)] mb-10">

@@ -80,7 +80,7 @@ export default function AboutPage({ setPage }) {
 
             {/* ── 2. STATS ────────────────────────────────── */}
             <section className="border-b border-[var(--border)]">
-                <div className="grid grid-cols-2 lg:grid-cols-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
                     {STATS.map((stat, i) => (
                         <div
                             key={stat.label}
@@ -135,7 +135,7 @@ export default function AboutPage({ setPage }) {
                     </div>
 
                     {/* Right: Story Images */}
-                    <div className="grid grid-cols-2 gap-3 h-full min-h-[400px]">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 h-full min-h-[400px]">
                         <div className="row-span-2 relative overflow-hidden bg-[var(--border)] rounded-tr-3xl">
                             <img 
                                 src={aboutStory1} 

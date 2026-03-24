@@ -60,7 +60,7 @@ export default function ShopPage({ setPage, setSelectedProduct, addToCart, searc
     };
 
     return (
-        <div className="max-w-7xl mx-auto px-6 py-12 font-sans">
+        <div className="max-w-7xl w-full mx-auto px-6 py-12 font-sans">
 
             {/* ── Breadcrumb ───────────────────────────────── */}
             <nav className="flex items-center gap-2 text-[11px] tracking-widest uppercase text-[var(--mid)] mb-8">
@@ -174,7 +174,7 @@ export default function ShopPage({ setPage, setSelectedProduct, addToCart, searc
                     )}
                 </div>
             ) : (
-                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
                     {filtered.map((product, i) => (
                         <ProductCard
                             key={product.id}

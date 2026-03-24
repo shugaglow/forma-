@@ -12,6 +12,18 @@
     --card:         #FDFAF6;
 }
 
+@layer base {
+    html, body {
+        overflow-x: hidden;
+        max-width: 100%;
+        width: 100%;
+    }
+
+    * {
+        box-sizing: border-box;
+    }
+}
+
 /* ── Typography Utilities ──────────────────────────────── */
 .font-serif {
     font-family: "Cormorant Garamond", Georgia, serif;

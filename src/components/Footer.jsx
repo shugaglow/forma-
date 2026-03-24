@@ -83,7 +83,10 @@ export default function Footer({ setPage, goToShop }) {
 
             {/* ── Main Grid ──────────────────────────────── */}
             <div className="max-w-7xl mx-auto px-6 pt-16 pb-10">
-                <div className="grid grid-cols-1 md:grid-cols-4 gap-12">
+                <div 
+                    className="grid gap-12"
+                    style={{ gridTemplateColumns: "repeat(auto-fit, minmax(160px, 1fr))" }}
+                >
 
                     {/* Brand Column */}
                     <div className="flex flex-col gap-5">

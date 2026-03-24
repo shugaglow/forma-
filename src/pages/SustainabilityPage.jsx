@@ -29,7 +29,7 @@ export default function SustainabilityPage({ setPage }) {
 
             {/* 2. STATS */}
             <section className="max-w-7xl mx-auto px-6 -mt-16 relative z-20 mb-32">
-                <div className="grid grid-cols-2 md:grid-cols-4 bg-[var(--card)] border border-[var(--border)] shadow-xl divide-x divide-y md:divide-y-0 divide-[var(--border)]">
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 bg-[var(--card)] border border-[var(--border)] shadow-xl divide-x divide-y md:divide-y-0 divide-[var(--border)]">
                     {[
                         { num: "100%", text: "Carbon neutral shipping since 2022" },
                         { num: "0", text: "Single-use plastic in our packaging" },

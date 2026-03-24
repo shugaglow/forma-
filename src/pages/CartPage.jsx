@@ -57,7 +57,7 @@ export default function CartPage({ cart, setCart, setPage }) {
     }
 
     return (
-        <div className="max-w-7xl mx-auto px-6 py-12 font-sans">
+        <div className="max-w-7xl w-full mx-auto px-6 py-12 font-sans">
 
             {/* ── Heading ──────────────────────────────────── */}
             <div className="mb-10">
