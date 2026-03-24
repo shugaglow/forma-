@@ -91,12 +91,21 @@ export default function ProductPage({ product, setPage, setSelectedProduct, addT
                             className="relative overflow-hidden flex items-center justify-center"
                             style={{ background: product.bg, aspectRatio: '3/4' }}
                         >
-                            <span
-                                className="text-9xl select-none transition-opacity duration-300"
-                                style={{ opacity: thumbOpacities[activeThumb] }}
-                            >
-                                {product.emoji}
-                            </span>
+                            {product.image ? (
+                                <img
+                                    src={product.image}
+                                    alt={product.name}
+                                    className="w-full h-full object-cover transition-opacity duration-300"
+                                    style={{ opacity: thumbOpacities[activeThumb] }}
+                                />
+                            ) : (
+                                <span
+                                    className="text-8xl select-none transition-opacity duration-300"
+                                    style={{ opacity: thumbOpacities[activeThumb] }}
+                                >
+                                    {product.emoji}
+                                </span>
+                            )}
                             {product.badge && (
                                 <span className={`absolute top-4 left-4 font-sans text-[10px] tracking-widest uppercase px-3 py-1 ${
                                     product.badge === 'Sale'
@@ -121,9 +130,18 @@ export default function ProductPage({ product, setPage, setSelectedProduct, addT
                                     }`}
                                     style={{ background: product.bg, aspectRatio: '1/1' }}
                                 >
-                                    <span className="text-3xl select-none" style={{ opacity }}>
-                                        {product.emoji}
-                                    </span>
+                                    {product.image ? (
+                                        <img
+                                            src={product.image}
+                                            alt={product.name}
+                                            className="w-full h-full object-cover hover:opacity-80 transition-opacity cursor-pointer"
+                                            style={{ opacity }}
+                                        />
+                                    ) : (
+                                        <span className="text-3xl select-none" style={{ opacity }}>
+                                            {product.emoji}
+                                        </span>
+                                    )}
                                 </button>
                             ))}
                         </div>

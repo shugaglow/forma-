@@ -1,30 +1,35 @@
 import React from 'react';
 import { PRODUCTS, CATEGORIES } from '../data/products';
 import ProductCard from '../components/ProductCard';
+import catCeramics from "../assets/images/cat-ceramics.jpg";
+import catLighting from "../assets/images/cat-lighting.jpg";
+import catFurniture from "../assets/images/cat-furniture.jpg";
+import catTextiles from "../assets/images/cat-textiles.jpg";
+import { Leaf, PackageCheck, RefreshCcw } from "lucide-react";
 
 // ── Category tile config ──────────────────────────────────
 const CATEGORY_TILES = [
-    { name: 'Ceramics',  emoji: '🏺', bg: '#DDD3C4', count: 24 },
-    { name: 'Lighting',  emoji: '💡', bg: '#D4C9B8', count: 18 },
-    { name: 'Furniture', emoji: '🪵', bg: '#C9C0B0', count: 31 },
-    { name: 'Textiles',  emoji: '🧣', bg: '#E8E0D2', count: 27 },
+    { name: "Ceramics",  img: catCeramics,  count: 2 },
+    { name: "Lighting",  img: catLighting,  count: 2 },
+    { name: "Furniture", img: catFurniture, count: 2 },
+    { name: "Textiles",  img: catTextiles,  count: 2 },
 ];
 
 const VALUES = [
     {
-        icon: '🌿',
-        title: 'Responsibly Sourced',
-        body: 'Every material is traced to its origin. We work only with makers who share our commitment to ethical production and fair wages.',
+        icon: Leaf,
+        title: "Responsibly Sourced",
+        body: "Every supplier vetted for fair wages, environmental standards, and long-term partnerships."
     },
     {
-        icon: '📦',
-        title: 'Plastic-Free Packaging',
-        body: 'All orders are packed in recycled paper and natural twine. Zero plastic — from our studio to your door.',
+        icon: PackageCheck,
+        title: "Plastic-Free Packaging",
+        body: "All orders ship in recycled kraft boxes with tissue and biodegradable fill."
     },
     {
-        icon: '↩︎',
-        title: '60-Day Returns',
-        body: 'Take your time. If anything isn\'t right, we offer free returns within 60 days, no questions asked.',
+        icon: RefreshCcw,
+        title: "60-Day Returns",
+        body: "If it's not right for your home, we'll take it back. No questions, no hassle."
     },
 ];
 
@@ -82,10 +87,13 @@ export default function HomePage({ setPage, setSelectedProduct, addToCart, wishl
                                 className="relative overflow-hidden group"
                                 style={{ background: product.bg, aspectRatio: '4/5' }}
                             >
-                                <span className="absolute inset-0 flex items-center justify-center text-5xl
-                                                 transition-transform duration-500 group-hover:scale-110 select-none">
-                                    {product.emoji}
-                                </span>
+                                {product.image ? (
+                                    <img src={product.image} alt={product.name} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
+                                ) : (
+                                    <span className="absolute inset-0 flex items-center justify-center text-5xl transition-transform duration-500 group-hover:scale-110 select-none">
+                                        {product.emoji}
+                                    </span>
+                                )}
                                 <div className="absolute bottom-0 left-0 right-0 bg-black/30 px-3 py-2
                                                 translate-y-full group-hover:translate-y-0 transition-transform duration-300">
                                     <p className="font-sans text-[11px] text-white tracking-wide truncate">
@@ -119,21 +127,34 @@ export default function HomePage({ setPage, setSelectedProduct, addToCart, wishl
                     </button>
                 </div>
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                    {CATEGORY_TILES.map(({ name, emoji, bg, count }) => (
-                        <button
-                            key={name}
+                    {CATEGORY_TILES.map((cat) => (
+                        <div
+                            key={cat.name}
                             onClick={() => setPage('shop')}
-                            className="group relative overflow-hidden flex flex-col items-center justify-center gap-3 py-12 px-4 transition-transform duration-300 hover:-translate-y-1"
-                            style={{ background: bg }}
+                            className="relative overflow-hidden cursor-pointer group transition-transform duration-300 hover:-translate-y-1"
+                            style={{ aspectRatio: "2/3" }}
                         >
-                            <span className="text-5xl transition-transform duration-500 group-hover:scale-110 select-none">
-                                {emoji}
-                            </span>
-                            <div className="text-center">
-                                <p className="font-serif text-[20px] text-[var(--ink)]">{name}</p>
-                                <p className="font-sans text-[11px] text-[var(--mid)] mt-0.5">{count} pieces</p>
+                            {/* image */}
+                            <img
+                                src={cat.img}
+                                alt={cat.name}
+                                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 block"
+                                onError={(e) => { e.target.style.display = "none" }}
+                            />
+
+                            {/* dark gradient overlay at bottom for text readability */}
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
+
+                            {/* text sitting on top of the overlay */}
+                            <div className="absolute bottom-0 left-0 right-0 p-6 text-left">
+                                <p className="text-xs tracking-widest uppercase text-white/60 mb-1">
+                                    {cat.count} items
+                                </p>
+                                <p className="font-serif text-xl font-bold text-white">
+                                    {cat.name}
+                                </p>
                             </div>
-                        </button>
+                        </div>
                     ))}
                 </div>
             </section>
@@ -201,10 +222,14 @@ export default function HomePage({ setPage, setSelectedProduct, addToCart, wishl
                         {editorialProducts.map((product) => (
                             <div
                                 key={product.id}
-                                className="flex items-center justify-center text-5xl select-none"
+                                className="relative overflow-hidden flex items-center justify-center text-5xl select-none"
                                 style={{ background: product.bg, aspectRatio: '1/1' }}
                             >
-                                {product.emoji}
+                                {product.image ? (
+                                    <img src={product.image} alt={product.name} className="absolute inset-0 w-full h-full object-cover" />
+                                ) : (
+                                    product.emoji
+                                )}
                             </div>
                         ))}
                     </div>
@@ -220,12 +245,14 @@ export default function HomePage({ setPage, setSelectedProduct, addToCart, wishl
                     <h2 className="font-serif text-4xl text-[var(--ink)]">Made with intention</h2>
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    {VALUES.map(({ icon, title, body }) => (
+                    {VALUES.map(({ icon: Icon, title, body }) => (
                         <div
                             key={title}
                             className="bg-[var(--card)] border border-[var(--border)] p-8 flex flex-col gap-4"
                         >
-                            <span className="text-3xl">{icon}</span>
+                            <div className="mb-2">
+                                <Icon size={28} strokeWidth={1.5} className="text-[#BF4E1E]" />
+                            </div>
                             <h3 className="font-serif text-[22px] text-[var(--ink)]">{title}</h3>
                             <p className="font-sans text-[13px] text-[var(--mid)] leading-relaxed">{body}</p>
                         </div>

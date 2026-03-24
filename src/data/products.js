@@ -1,8 +1,18 @@
+import p1 from "../assets/images/product-1.jpg"
+import p2 from "../assets/images/product-2.jpg"
+import p3 from "../assets/images/product-3.jpg"
+import p4 from "../assets/images/product-4.jpg"
+import p5 from "../assets/images/product-5.jpg"
+import p6 from "../assets/images/product-6.jpg"
+import p7 from "../assets/images/product-7.jpg"
+import p8 from "../assets/images/product-8.jpg"
+
 export const CATEGORIES = ["All", "Ceramics", "Textiles", "Lighting", "Furniture"];
 
 export const PRODUCTS = [
     {
         id: 1,
+        image: p1,
         name: "Ritual Tea Set",
         category: "Ceramics",
         price: 48,
@@ -18,6 +28,7 @@ export const PRODUCTS = [
     },
     {
         id: 2,
+        image: p2,
         name: "Wabi Linen Throw",
         category: "Textiles",
         price: 89,
@@ -33,6 +44,7 @@ export const PRODUCTS = [
     },
     {
         id: 3,
+        image: p3,
         name: "Rattan Pendant",
         category: "Lighting",
         price: 135,
@@ -48,6 +60,7 @@ export const PRODUCTS = [
     },
     {
         id: 4,
+        image: p4,
         name: "Ossian Dining Chair",
         category: "Furniture",
         price: 220,
@@ -63,6 +76,7 @@ export const PRODUCTS = [
     },
     {
         id: 5,
+        image: p5,
         name: "Dusk Stoneware Vase",
         category: "Ceramics",
         price: 36,
@@ -78,6 +92,7 @@ export const PRODUCTS = [
     },
     {
         id: 6,
+        image: p6,
         name: "Grid Wool Cushion",
         category: "Textiles",
         price: 62,
@@ -93,6 +108,7 @@ export const PRODUCTS = [
     },
     {
         id: 7,
+        image: p7,
         name: "Arc Floor Lamp",
         category: "Lighting",
         price: 175,
@@ -108,6 +124,7 @@ export const PRODUCTS = [
     },
     {
         id: 8,
+        image: p8,
         name: "Cane Bookshelf",
         category: "Furniture",
         price: 390,

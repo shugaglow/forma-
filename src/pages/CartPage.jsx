@@ -89,10 +89,14 @@ export default function CartPage({ cart, setCart, setPage }) {
                                 {/* Thumbnail + name */}
                                 <div className="flex items-center gap-4">
                                     <div
-                                        className="w-20 h-24 flex-shrink-0 flex items-center justify-center text-3xl select-none"
+                                        className="relative overflow-hidden w-20 h-24 flex-shrink-0 flex items-center justify-center text-3xl select-none"
                                         style={{ background: product.bg }}
                                     >
-                                        {product.emoji}
+                                        {product.image ? (
+                                            <img src={product.image} alt={product.name} className="absolute inset-0 w-full h-full object-cover" />
+                                        ) : (
+                                            product.emoji
+                                        )}
                                     </div>
                                     <div>
                                         <p className="font-sans text-[10px] tracking-widest uppercase text-[var(--mid)] mb-0.5">

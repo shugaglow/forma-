@@ -10,6 +10,13 @@ import LookbookPage from './pages/LookbookPage';
 import AboutPage from './pages/AboutPage';
 import WishlistPage from './pages/WishlistPage';
 import CheckoutPage from './pages/CheckoutPage';
+import ShippingReturnsPage from './pages/ShippingReturnsPage';
+import SizeGuidePage from './pages/SizeGuidePage';
+import CareInstructionsPage from './pages/CareInstructionsPage';
+import ContactPage from './pages/ContactPage';
+import SustainabilityPage from './pages/SustainabilityPage';
+import CareersPage from './pages/CareersPage';
+import PressPage from './pages/PressPage';
 import { PRODUCTS } from './data/products';
 
 const STORE_VERSION = "forma_v1";
@@ -37,6 +44,12 @@ export default function App() {
     });
 
     const [toast, setToast] = useState(null);
+    const [shopFilter, setShopFilter] = useState({ category: "All", filter: null });
+
+    const goToShop = (category = "All", filter = null) => {
+        setShopFilter({ category, filter });
+        setPage("shop");
+    };
 
     // ── Persistent State Syncing ──────────────────────────────
     useEffect(() => { try { localStorage.setItem("forma_page", JSON.stringify(page)); } catch {} }, [page]);
@@ -64,6 +77,9 @@ export default function App() {
     // Scroll to top on page change
     useEffect(() => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
+        if (page !== "shop") {
+            setShopFilter({ category: "All", filter: null });
+        }
     }, [page]);
 
     // Go to shop when search is typed
@@ -115,7 +131,7 @@ export default function App() {
             case 'home':
                 return <HomePage {...props} />;
             case 'shop':
-                return <ShopPage searchQuery={searchQuery} setSearchQuery={setSearchQuery} {...props} />;
+                return <ShopPage searchQuery={searchQuery} setSearchQuery={setSearchQuery} defaultCategory={shopFilter.category} defaultFilter={shopFilter.filter} {...props} />;
             case 'product':
                 return <ProductPage product={selectedProduct} {...props} />;
             case 'lookbook':
@@ -128,6 +144,20 @@ export default function App() {
                 return <CartPage cart={cart} setCart={setCart} setPage={setPage} setSelectedProduct={setSelectedProduct} />;
             case 'checkout':
                 return <CheckoutPage cart={cart} setCart={setCart} setPage={setPage} />;
+            case 'shipping':
+                return <ShippingReturnsPage setPage={setPage} />;
+            case 'size-guide':
+                return <SizeGuidePage setPage={setPage} />;
+            case 'care':
+                return <CareInstructionsPage setPage={setPage} />;
+            case 'contact':
+                return <ContactPage setPage={setPage} />;
+            case 'sustainability':
+                return <SustainabilityPage setPage={setPage} />;
+            case 'careers':
+                return <CareersPage setPage={setPage} />;
+            case 'press':
+                return <PressPage setPage={setPage} />;
             default:
                 return <HomePage {...props} />;
         }
@@ -147,7 +177,7 @@ export default function App() {
             <main className="flex-1">
                 {renderPage()}
             </main>
-            <Footer setPage={setPage} />
+            <Footer setPage={setPage} goToShop={goToShop} />
             <Toast message={toast} />
         </div>
     );

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import SocialComingSoon from './SocialComingSoon';
 
 // ── Social Icons ─────────────────────────────────────────
 const InstagramIcon = () => (
@@ -27,23 +28,47 @@ const TiktokIcon = () => (
 // ── Link columns data ─────────────────────────────────────
 const COLUMNS = [
     {
-        heading: 'Shop',
-        links: ['New Arrivals', 'Ceramics', 'Textiles', 'Lighting', 'Furniture', 'Sale'],
-    },
-    {
         heading: 'Company',
-        links: ['Our Story', 'Lookbook', 'Sustainability', 'Press', 'Careers', 'Stockists'],
+        links: [
+            { label: 'Our Story', page: 'about' },
+            { label: 'Lookbook', page: 'lookbook' },
+            { label: 'Sustainability', page: 'sustainability' },
+            { label: 'Press', page: 'press' },
+            { label: 'Careers', page: 'careers' },
+            { label: 'Stockists', page: 'home' },
+        ],
     },
     {
         heading: 'Help',
-        links: ['FAQ', 'Shipping & Returns', 'Track My Order', 'Care Guides', 'Contact Us'],
+        links: [
+            { label: 'FAQ', page: 'shipping' },
+            { label: 'Shipping & Returns', page: 'shipping' },
+            { label: 'Care Guides', page: 'care' },
+            { label: 'Size Guide', page: 'size-guide' },
+            { label: 'Contact Us', page: 'contact' },
+        ],
     },
 ];
 
 // ── Component ─────────────────────────────────────────────
-export default function Footer({ setPage }) {
+export default function Footer({ setPage, goToShop }) {
     const [email, setEmail] = useState('');
     const [subscribed, setSubscribed] = useState(false);
+    const [activeSocial, setActiveSocial] = useState(null);
+
+    const shopLinks = [
+        { label: "New Arrivals", action: () => goToShop("All", "new") },
+        { label: "Ceramics", action: () => goToShop("Ceramics") },
+        { label: "Textiles", action: () => goToShop("Textiles") },
+        { label: "Lighting", action: () => goToShop("Lighting") },
+        { label: "Furniture", action: () => goToShop("Furniture") },
+        { label: "Sale", action: () => goToShop("All", "sale") },
+    ];
+
+    const ALL_COLUMNS = [
+        { heading: 'Shop', links: shopLinks },
+        ...COLUMNS
+    ];
 
     const handleSubscribe = (e) => {
         e.preventDefault();
@@ -74,35 +99,36 @@ export default function Footer({ setPage }) {
                         {/* Social Buttons */}
                         <div className="flex items-center gap-3 mt-1">
                             {[
-                                { Icon: InstagramIcon, label: 'Instagram' },
-                                { Icon: PinterestIcon, label: 'Pinterest' },
-                                { Icon: TiktokIcon, label: 'TikTok' },
-                            ].map(({ Icon, label }) => (
+                                { label: "IG", platform: "Instagram" },
+                                { label: "PI", platform: "Pinterest" },
+                                { label: "TK", platform: "TikTok" },
+                            ].map((social) => (
                                 <button
-                                    key={label}
-                                    aria-label={label}
-                                    className="w-9 h-9 border border-[var(--mid)] rounded-full flex items-center justify-center text-[var(--mid)] hover:border-[var(--cream)] hover:text-[var(--cream)] transition-colors duration-200"
+                                    key={social.platform}
+                                    aria-label={social.platform}
+                                    onClick={() => setActiveSocial(social.platform)}
+                                    className="w-9 h-9 border border-[var(--mid)] rounded-full flex items-center justify-center font-sans text-[11px] text-[var(--mid)] hover:border-[var(--cream)] hover:text-[var(--cream)] transition-colors duration-200"
                                 >
-                                    <Icon />
+                                    {social.label}
                                 </button>
                             ))}
                         </div>
                     </div>
 
                     {/* Link Columns */}
-                    {COLUMNS.map(({ heading, links }) => (
+                    {ALL_COLUMNS.map(({ heading, links }) => (
                         <div key={heading}>
                             <h4 className="font-sans text-[11px] tracking-widest uppercase text-[var(--mid)] mb-5">
                                 {heading}
                             </h4>
                             <ul className="flex flex-col gap-3">
                                 {links.map((link) => (
-                                    <li key={link}>
+                                    <li key={link.label}>
                                         <button
-                                            onClick={() => setPage('shop')}
+                                            onClick={() => link.action ? link.action() : setPage(link.page)}
                                             className="font-sans text-[13px] text-[var(--cream)] hover:text-[var(--mid)] transition-colors duration-150 text-left"
                                         >
-                                            {link}
+                                            {link.label}
                                         </button>
                                     </li>
                                 ))}
@@ -158,6 +184,13 @@ export default function Footer({ setPage }) {
                 </div>
             </div>
 
+            {/* ── Social Coming Soon Modal ──────────────────── */}
+            {activeSocial && (
+                <SocialComingSoon
+                    platform={activeSocial}
+                    onClose={() => setActiveSocial(null)}
+                />
+            )}
         </footer>
     );
 }

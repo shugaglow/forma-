@@ -1,4 +1,15 @@
 import React, { useEffect } from 'react';
+import teamImg1 from "../assets/images/team-1.jpg";
+import teamImg2 from "../assets/images/team-2.jpg";
+import teamImg3 from "../assets/images/team-3.jpg";
+import aboutHero from "../assets/images/about-hero.jpg";
+import aboutStory1 from "../assets/images/about-story-1.jpg";
+import aboutStory2 from "../assets/images/about-story-2.jpg";
+import aboutStory3 from "../assets/images/about-story-3.jpg";
+import aboutValues from "../assets/images/about-values.jpg";
+import valueImg1 from "../assets/images/value-1.jpg";
+import valueImg2 from "../assets/images/value-2.jpg";
+import valueImg3 from "../assets/images/value-3.jpg";
 
 // ── Data ────────────────────────────────────────────────
 const STATS = [
@@ -10,33 +21,26 @@ const STATS = [
 
 const VALUES = [
     {
-        icon: '⏳',
+        img: valueImg1,
         title: 'Slow Design',
         body: 'We reject the fleeting cycle of trends. Every object is designed to endure, crafted from materials that grow more beautiful with time and use.',
     },
     {
-        icon: '🤝',
+        img: valueImg2,
         title: 'Fair Partnerships',
         body: 'We bypass the middlemen, working directly with independent makers. This ensures fair wages, safe conditions, and transparent pricing for you.',
     },
     {
-        icon: '🌍',
+        img: valueImg3,
         title: 'Planet First',
         body: 'From 100% plastic-free packaging to climate-neutral shipping, every decision is weighed against its environmental impact.',
     },
 ];
 
 const TEAM = [
-    { name: 'Lena Kraft', role: 'Founder & Creative Director', emoji: '🧑‍🎨', bg: '#D4C9B8' },
-    { name: 'Ryo Tanaka', role: 'Head of Sourcing', emoji: '🕵️‍♂️', bg: '#E8E0D2' },
-    { name: 'Amara Osei', role: 'Brand & Community', emoji: '👩‍💻', bg: '#DDD3C4' },
-];
-
-const STORY_IMAGES = [
-    { emoji: '🏺', bg: '#C9C0B0' },
-    { emoji: '🪵', bg: '#D4C9B8' },
-    { emoji: '🧣', bg: '#E8E0D2' },
-    { emoji: '🪴', bg: '#DDD3C4' },
+  { name:"Lena Kraft", role:"Founder & Creative Director", img: teamImg1 },
+  { name:"Ryo Tanaka", role:"Head of Sourcing", img: teamImg2 },
+  { name:"Amara Osei", role:"Brand & Storytelling", img: teamImg3 },
 ];
 
 // ── Component ─────────────────────────────────────────────
@@ -51,17 +55,27 @@ export default function AboutPage({ setPage }) {
         <div className="font-sans">
 
             {/* ── 1. HERO ─────────────────────────────────── */}
-            <section className="bg-[var(--ink)] text-[var(--cream)] py-32 text-center px-6">
-                <span className="font-sans text-[11px] tracking-widest uppercase text-[var(--mid)] mb-4 block">
-                    Our Story
-                </span>
-                <h1 className="font-serif text-5xl md:text-7xl mb-6">
-                    Made with intention.<br />Built to last.
-                </h1>
-                <p className="font-sans text-[15px] text-[var(--mid)] leading-relaxed max-w-lg mx-auto">
-                    Forma was born from a desire to live with fewer, better things. We travel the globe to
-                    partner with artisans who share our dedication to material honesty and enduring craft.
-                </p>
+            <section 
+                className="relative bg-[var(--ink)] text-[var(--cream)] py-32 text-center px-6"
+                style={{ 
+                    backgroundImage: `url(${aboutHero})`,
+                    backgroundSize: "cover",
+                    backgroundPosition: "center"
+                }}
+            >
+                <div className="absolute inset-0 z-0" style={{ background: "rgba(28,24,20,0.75)" }}></div>
+                <div className="relative z-10">
+                    <span className="font-sans text-[11px] tracking-widest uppercase text-[var(--mid)] mb-4 block">
+                        Our Story
+                    </span>
+                    <h1 className="font-serif text-5xl md:text-7xl mb-6">
+                        Made with intention.<br />Built to last.
+                    </h1>
+                    <p className="font-sans text-[15px] text-[var(--mid)] leading-relaxed max-w-lg mx-auto">
+                        Forma was born from a desire to live with fewer, better things. We travel the globe to
+                        partner with artisans who share our dedication to material honesty and enduring craft.
+                    </p>
+                </div>
             </section>
 
             {/* ── 2. STATS ────────────────────────────────── */}
@@ -120,24 +134,44 @@ export default function AboutPage({ setPage }) {
                         </button>
                     </div>
 
-                    {/* Right: 2×2 Image Grid */}
-                    <div className="grid grid-cols-2 gap-3">
-                        {STORY_IMAGES.map((img, i) => (
-                            <div
-                                key={i}
-                                className="flex items-center justify-center text-6xl select-none"
-                                style={{ background: img.bg, aspectRatio: '1/1' }}
-                            >
-                                {img.emoji}
-                            </div>
-                        ))}
+                    {/* Right: Story Images */}
+                    <div className="grid grid-cols-2 gap-3 h-full min-h-[400px]">
+                        <div className="row-span-2 relative overflow-hidden bg-[var(--border)] rounded-tr-3xl">
+                            <img 
+                                src={aboutStory1} 
+                                alt="Forma studio" 
+                                onError={(e) => { e.target.style.display = "none" }}
+                                className="absolute inset-0 w-full h-full object-cover"
+                            />
+                        </div>
+                        <div className="relative overflow-hidden bg-[var(--border)]" style={{ aspectRatio: '1/1' }}>
+                            <img 
+                                src={aboutStory2} 
+                                alt="Forma studio" 
+                                onError={(e) => { e.target.style.display = "none" }}
+                                className="absolute inset-0 w-full h-full object-cover"
+                            />
+                        </div>
+                        <div className="relative overflow-hidden bg-[var(--border)]" style={{ aspectRatio: '1/1' }}>
+                            <img 
+                                src={aboutStory3} 
+                                alt="Forma studio" 
+                                onError={(e) => { e.target.style.display = "none" }}
+                                className="absolute inset-0 w-full h-full object-cover"
+                            />
+                        </div>
                     </div>
                 </div>
             </section>
 
             {/* ── 4. VALUES ───────────────────────────────── */}
-            <section style={{ background: '#EDE7DE' }} className="py-24">
-                <div className="max-w-7xl mx-auto px-6">
+            <section className="relative py-24" style={{ 
+                backgroundImage: `url(${aboutValues})`,
+                backgroundSize: 'cover',
+                backgroundPosition: 'center'
+            }}>
+                <div className="absolute inset-0 z-0" style={{ background: "rgba(237,231,222,0.92)" }}></div>
+                <div className="relative z-10 max-w-7xl mx-auto px-6">
                     <div className="text-center mb-16">
                         <span className="font-sans text-[11px] tracking-widest uppercase text-[var(--mid)] mb-3 block">
                             Our Commitments
@@ -145,9 +179,16 @@ export default function AboutPage({ setPage }) {
                         <h2 className="font-serif text-4xl text-[var(--ink)]">What guides us</h2>
                     </div>
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
-                        {VALUES.map(({ icon, title, body }) => (
+                        {VALUES.map(({ img, title, body }) => (
                             <div key={title} className="flex flex-col items-center text-center gap-4">
-                                <span className="text-4xl">{icon}</span>
+                                <div className="w-full overflow-hidden mb-2" style={{ aspectRatio: "16/9" }}>
+                                    <img
+                                        src={img}
+                                        alt={title}
+                                        className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
+                                        onError={(e) => { e.target.style.display = "none" }}
+                                    />
+                                </div>
                                 <h3 className="font-serif text-[22px] text-[var(--ink)]">{title}</h3>
                                 <p className="font-sans text-[14px] text-[var(--mid)] leading-relaxed">
                                     {body}
@@ -169,18 +210,23 @@ export default function AboutPage({ setPage }) {
                     </div>
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-8">
-                    {TEAM.map(({ name, role, emoji, bg }) => (
-                        <div key={name} className="flex flex-col gap-4">
+                    {TEAM.map((member) => (
+                        <div key={member.name} className="flex flex-col gap-4 group">
                             <div
-                                className="w-full relative flex items-center justify-center overflow-hidden"
-                                style={{ background: bg, aspectRatio: '4/5' }}
+                                className="w-full relative overflow-hidden bg-[var(--border)]"
+                                style={{ aspectRatio: '3/4' }}
                             >
-                                <span className="text-8xl select-none">{emoji}</span>
+                                <img
+                                    src={member.img}
+                                    alt={member.name}
+                                    onError={(e) => { e.target.style.display = "none" }}
+                                    className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
+                                />
                             </div>
                             <div className="text-center">
-                                <h3 className="font-serif text-[22px] text-[var(--ink)]">{name}</h3>
+                                <h3 className="font-serif text-[22px] text-[var(--ink)]">{member.name}</h3>
                                 <p className="font-sans text-[11px] tracking-widest uppercase text-[var(--mid)] mt-1">
-                                    {role}
+                                    {member.role}
                                 </p>
                             </div>
                         </div>

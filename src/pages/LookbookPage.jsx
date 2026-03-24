@@ -73,9 +73,13 @@ export default function LookbookPage({ setPage, setSelectedProduct, wishlist, to
                                 className="relative overflow-hidden flex flex-col items-center justify-center [direction:ltr]"
                                 style={{ background: look.imgBg, aspectRatio: '4/5' }}
                             >
-                                <span className="text-9xl select-none hover:scale-105 transition-transform duration-700">
-                                    {look.imgEmoji}
-                                </span>
+                                {look.products[0].image ? (
+                                    <img src={look.products[0].image} alt={look.products[0].name} className="absolute inset-0 w-full h-full object-cover hover:scale-105 transition-transform duration-700 cursor-pointer" />
+                                ) : (
+                                    <span className="text-9xl select-none hover:scale-105 transition-transform duration-700">
+                                        {look.imgEmoji}
+                                    </span>
+                                )}
                             </div>
 
                             {/* ── Text Side ───────────────────────── */}
@@ -105,10 +109,14 @@ export default function LookbookPage({ setPage, setSelectedProduct, wishlist, to
                                                 <div className="flex items-center gap-4">
                                                     {/* Mini thumb */}
                                                     <div
-                                                        className="w-12 h-12 flex items-center justify-center text-xl shrink-0"
+                                                        className="relative overflow-hidden w-12 h-12 flex items-center justify-center text-xl shrink-0"
                                                         style={{ background: p.bg }}
                                                     >
-                                                        {p.emoji}
+                                                        {p.image ? (
+                                                            <img src={p.image} alt={p.name} className="absolute inset-0 w-full h-full object-cover" />
+                                                        ) : (
+                                                            p.emoji
+                                                        )}
                                                     </div>
                                                     <div>
                                                         <p className="font-serif text-[17px] text-[var(--ink)] group-hover:text-[var(--accent)] transition-colors">

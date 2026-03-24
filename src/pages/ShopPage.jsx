@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { PRODUCTS, CATEGORIES } from '../data/products';
 import ProductCard from '../components/ProductCard';
 
@@ -8,16 +8,32 @@ const SORT_OPTIONS = [
     { label: 'Price: High → Low', value: 'price_desc' },
 ];
 
-export default function ShopPage({ setPage, setSelectedProduct, addToCart, searchQuery = '', setSearchQuery, wishlist, toggleWishlist }) {
-    const [activeCategory, setActiveCategory] = useState('All');
+export default function ShopPage({ setPage, setSelectedProduct, addToCart, searchQuery = '', setSearchQuery, wishlist, toggleWishlist, defaultCategory, defaultFilter }) {
+    const [activeCategory, setActiveCategory] = useState(defaultCategory || 'All');
+    const [saleOnly, setSaleOnly] = useState(defaultFilter === 'sale' || false);
+    const [newOnly, setNewOnly] = useState(defaultFilter === 'new' || false);
     const [sortBy, setSortBy] = useState('featured');
+
+    useEffect(() => {
+        setActiveCategory(defaultCategory || 'All');
+        setSaleOnly(defaultFilter === 'sale');
+        setNewOnly(defaultFilter === 'new');
+    }, [defaultCategory, defaultFilter]);
 
     const filtered = useMemo(() => {
         let list = activeCategory === 'All'
             ? [...PRODUCTS]
             : PRODUCTS.filter((p) => p.category === activeCategory);
 
-        if (searchQuery) {
+        if (saleOnly) {
+            list = list.filter((p) => p.badge === 'Sale');
+        }
+
+        if (newOnly) {
+            list = list.filter((p) => p.badge === 'New');
+        }
+
+        if (searchQuery && searchQuery.trim() !== '') {
             const lowerQuery = searchQuery.toLowerCase();
             list = list.filter(
                 (p) => p.name.toLowerCase().includes(lowerQuery) || p.category.toLowerCase().includes(lowerQuery)
@@ -28,11 +44,19 @@ export default function ShopPage({ setPage, setSelectedProduct, addToCart, searc
         if (sortBy === 'price_desc') list.sort((a, b) => b.price - a.price);
 
         return list;
-    }, [activeCategory, sortBy, searchQuery]);
+    }, [activeCategory, saleOnly, newOnly, sortBy, searchQuery]);
 
     const goToProduct = (product) => {
         setSelectedProduct(product);
         setPage('product');
+    };
+
+    const getHeading = () => {
+        if (newOnly) return "New Arrivals";
+        if (saleOnly) return "Sale Items";
+        if (activeCategory !== "All") return activeCategory;
+        if (searchQuery && searchQuery.trim() !== "") return `Results for "${searchQuery}"`;
+        return "All Products";
     };
 
     return (
@@ -51,7 +75,7 @@ export default function ShopPage({ setPage, setSelectedProduct, addToCart, searc
             <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-8">
                 <div>
                     <h1 className="font-serif text-4xl text-[var(--ink)]">
-                        {searchQuery ? `Results for "${searchQuery}"` : 'All Products'}
+                        {getHeading()}
                     </h1>
                     <p className="font-sans text-[13px] text-[var(--mid)] mt-1">
                         {filtered.length} {filtered.length === 1 ? 'piece' : 'pieces'}
@@ -81,13 +105,18 @@ export default function ShopPage({ setPage, setSelectedProduct, addToCart, searc
             </div>
 
             {/* ── Category Filter Buttons ───────────────────── */}
+            {/* ── Category Filter Buttons ───────────────────── */}
             <div className="flex flex-wrap gap-2 mb-10">
                 {CATEGORIES.map((cat) => (
                     <button
                         key={cat}
-                        onClick={() => setActiveCategory(cat)}
+                        onClick={() => {
+                            setActiveCategory(cat);
+                            setSaleOnly(false);
+                            setNewOnly(false);
+                        }}
                         className={`font-sans text-[11px] tracking-widest uppercase px-4 py-2 border transition-colors duration-150 ${
-                            activeCategory === cat
+                            activeCategory === cat && !saleOnly && !newOnly
                                 ? 'bg-[var(--ink)] text-[var(--cream)] border-[var(--ink)]'
                                 : 'bg-transparent text-[var(--mid)] border-[var(--border)] hover:border-[var(--ink)] hover:text-[var(--ink)]'
                         }`}
@@ -95,6 +124,36 @@ export default function ShopPage({ setPage, setSelectedProduct, addToCart, searc
                         {cat}
                     </button>
                 ))}
+                
+                <button
+                    onClick={() => {
+                        setNewOnly(!newOnly);
+                        setActiveCategory('All');
+                        setSaleOnly(false);
+                    }}
+                    className={`font-sans text-[11px] tracking-widest uppercase px-4 py-2 border transition-colors duration-150 ${
+                        newOnly
+                            ? 'bg-[var(--ink)] text-[var(--cream)] border-[var(--ink)]'
+                            : 'bg-transparent text-[var(--mid)] border-[var(--border)] hover:border-[var(--ink)] hover:text-[var(--ink)]'
+                    }`}
+                >
+                    New Arrivals
+                </button>
+
+                <button
+                    onClick={() => {
+                        setSaleOnly(!saleOnly);
+                        setActiveCategory('All');
+                        setNewOnly(false);
+                    }}
+                    className={`font-sans text-[11px] tracking-widest uppercase px-4 py-2 border transition-colors duration-150 ${
+                        saleOnly
+                            ? 'bg-[var(--accent)] text-white border-[var(--accent)]'
+                            : 'bg-transparent text-[var(--mid)] border-[var(--border)] hover:border-[var(--accent)] hover:text-[var(--accent)]'
+                    }`}
+                >
+                    Sale
+                </button>
             </div>
 
             {/* ── Product Grid ─────────────────────────────── */}

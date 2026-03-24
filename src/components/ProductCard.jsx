@@ -39,11 +39,18 @@ export default function ProductCard({ product, index, onClick, addToCart, isWish
                 className="relative overflow-hidden"
                 style={{ background: product.bg, aspectRatio: '4/5' }}
             >
-                {/* Emoji centred */}
-                <span className="absolute inset-0 flex items-center justify-center text-7xl select-none
-                                 transition-transform duration-500 group-hover:scale-110">
-                    {product.emoji}
-                </span>
+                {/* ── Dynamic Image or Fallback ────────────────── */}
+                {product.image ? (
+                    <img
+                        src={product.image}
+                        alt={product.name}
+                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    />
+                ) : (
+                    <span className="absolute inset-0 flex items-center justify-center text-7xl select-none transition-transform duration-500 group-hover:scale-110">
+                        {product.emoji}
+                    </span>
+                )}
 
                 {/* Badge */}
                 {product.badge && (
