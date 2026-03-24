@@ -147,11 +147,24 @@ export default function Header({ page, setPage, cartCount, wishlistCount = 0, se
 
                     {/* Center: Logo */}
                     <div className="flex justify-center w-1/3">
-                        <button
-                            onClick={() => navigate('home')}
-                            className="font-serif text-3xl tracking-wide text-[var(--ink)] hover:opacity-70 transition-opacity leading-none"
+                        <button 
+                          onClick={() => setPage("home")}
+                          style={{ 
+                            background:"none", 
+                            border:"none", 
+                            cursor:"pointer",
+                            fontFamily:"'Cormorant Garamond', serif",
+                            fontSize:"1.9rem",
+                            fontWeight:"700",
+                            letterSpacing:"0.18em",
+                            textTransform:"uppercase",
+                            color:"#1C1814",
+                            position:"absolute",
+                            left:"50%",
+                            transform:"translateX(-50%)"
+                          }}
                         >
-                            Forma
+                          Forma
                         </button>
                     </div>
 

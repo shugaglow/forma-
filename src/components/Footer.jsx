@@ -87,12 +87,16 @@ export default function Footer({ setPage, goToShop }) {
 
                     {/* Brand Column */}
                     <div className="flex flex-col gap-5">
-                        <button
-                            onClick={() => setPage('home')}
-                            className="font-serif text-4xl tracking-wide text-[var(--cream)] hover:opacity-70 transition-opacity text-left leading-none"
-                        >
-                            Forma
-                        </button>
+                        <div style={{ 
+                          fontFamily:"'Cormorant Garamond', serif", 
+                          fontSize:"2rem", 
+                          fontWeight:"700", 
+                          letterSpacing:"0.18em", 
+                          textTransform:"uppercase",
+                          marginBottom:"20px"
+                        }}>
+                          Forma
+                        </div>
                         <p className="font-sans text-[13px] text-[var(--mid)] leading-relaxed max-w-[200px]">
                             Objects made with intention. Crafted in small batches by independent makers.
                         </p>
