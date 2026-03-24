@@ -114,7 +114,7 @@ export default function Header({ page, setPage, cartCount, wishlistCount = 0, se
             <div
                 className={`bg-[var(--cream)] transition-shadow duration-300 ${scrolled ? 'shadow-md' : 'shadow-none'}`}
             >
-                <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+                <div className="relative max-w-7xl mx-auto px-6 h-[68px] flex items-center justify-between">
 
                     {/* Left: Nav links (desktop) + Hamburger (mobile) */}
                     <div className="flex items-center gap-8 w-1/3">
@@ -161,7 +161,10 @@ export default function Header({ page, setPage, cartCount, wishlistCount = 0, se
                             color:"#1C1814",
                             position:"absolute",
                             left:"50%",
-                            transform:"translateX(-50%)"
+                            top:"50%",
+                            transform:"translateX(-50%) translateY(-50%)",
+                            whiteSpace:"nowrap",
+                            lineHeight:"1"
                           }}
                         >
                           Forma
